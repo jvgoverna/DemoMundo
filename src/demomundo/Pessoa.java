@@ -39,6 +39,7 @@ public class Pessoa {
     public int getCor() {
         return cor;
     }
+    
     public void setCor(int cor) {
         this.cor = cor;
     }

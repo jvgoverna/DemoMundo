@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class PessoaBemInformada extends Pessoa implements iMovable{
     Random rand = new Random();
+    Pessoa pessoa = new Pessoa();
     
     private ArrayList <PessoaBemInformada> Agenda_BemInformadas = new ArrayList<PessoaBemInformada>();
     
@@ -18,6 +19,15 @@ public class PessoaBemInformada extends Pessoa implements iMovable{
     //Movimento de x e y de 1 em 1
     @Override
     public void move(){
+       //Movimento de x e de y 1 em 1 atualizando a newX e newY
+        int newX = getX() + rand.nextInt(3) - 1;
+        int newY = getY() + rand.nextInt(3) - 1;
+        //Verifica se newX e newY estão dentro do limite da tela 60X30
+        if(newX >= 1 && newX < 59 && newY >= 1 && newY < 29){
+            setX(newX);
+            setY(newY);
+        }
+        
         
     }
 

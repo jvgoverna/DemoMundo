@@ -20,6 +20,7 @@ public class Mundo {
         GerarPessoasMundo(); //Contrutor do mundo que gera as pessoas sempre que roda o programa!
     }
 
+
     private int [][] mapa = new int[][]
     {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//1
@@ -54,6 +55,18 @@ public class Mundo {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//30
     };
 
+
+
+    //Atributos do Mundo
+    public int[][] getMapa() {
+        return mapa;
+    }
+    public void setMapa(int[][] mapa) {
+        this.mapa = mapa;
+    }
+
+
+    //Métodos do Mundo
     public void atualizaMundo(){
         /* 
         Pessoa teste = new Pessoa();
@@ -66,6 +79,7 @@ public class Mundo {
         */
         
         DesenharPessoa();
+
         
     }
     public void desenhaMundo(){
@@ -108,13 +122,12 @@ public class Mundo {
 
     public void GerarPessoasMundo(){
         Random rand = new Random();
-        for(int i = 0 ; i < 20; i++){ //Cria as pessoas
+        for(int i = 0 ; i < 100; i++){ //Cria as pessoas
             
             pessoasMundo.add(new PessoaBemInformada());
             pessoasMundo.get(i).setX(rand.nextInt(1,59));//Limite das colunas da matriz!
             pessoasMundo.get(i).setY(rand.nextInt(1,29));//Limite das linhas da matriz!
             pessoasMundo.get(i).setCor(5);
-            
         }
     }
 
@@ -122,7 +135,6 @@ public class Mundo {
         for (Pessoa pessoa : pessoasMundo) {
             ((PessoaBemInformada)pessoa).move();
             mapa[pessoa.getY()][pessoa.getX()] = pessoa.getCor();
-            
         }
     }
 }
