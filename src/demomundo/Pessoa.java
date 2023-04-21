@@ -14,9 +14,16 @@ public class Pessoa {
     private int x,y,cor;
     private String whatsappID;
     private ArrayList <Pessoa> AgendaContatos = new ArrayList<Pessoa>();
-
-
-
+    //private static int novoWhats = 0;
+    
+    //public Pessoa(int x, int y, int cor) {
+        //this.x = x;
+        //this.y = y;
+        //this.cor = cor;
+        //this.whatsappID = "WhatsappID" + novoWhats;
+        //novoWhats++;
+    //}
+    
     public int getX() {
         return x;
     }
@@ -48,7 +55,7 @@ public class Pessoa {
         AgendaContatos = agendaContatos;
     }
 
-    public void addContatos(Pessoa contato){
+    public void addContatos(Pessoa contato){ //Valor fixo de 100 contatos
         for (int i = 0; i < 100; i++) {
             AgendaContatos.add(contato);
         }

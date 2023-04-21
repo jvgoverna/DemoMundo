@@ -4,12 +4,22 @@
  */
 package demomundo;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author João Vitor
  */
 public class Mundo {
+    private ArrayList <Pessoa> pessoasMundo = new ArrayList<>();
     private int coluna = 1;
+
+
+    public Mundo(){
+        GerarPessoasMundo(); //Contrutor do mundo que gera as pessoas sempre que roda o programa!
+    }
+
     private int [][] mapa = new int[][]
     {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//1
@@ -43,23 +53,21 @@ public class Mundo {
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//29
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//30
     };
-    
-    
-    
-    public void atualizaMundo(){
 
+    public void atualizaMundo(){
+        /* 
         Pessoa teste = new Pessoa();
         teste.addContatos(teste);
-        System.out.println("Pessoas no mundo: " + teste.getAgendaContatos().size());
+        System.out.println("Total de Pessoas: " + teste.getAgendaContatos().size());
         
-        mapa[1][coluna] = 2;
-        mapa[1][coluna-1] = 0;
-        coluna ++;
-        if(coluna > mapa.length){
-            coluna = 1;
-        }
+        PessoaBemInformada teste2 = new PessoaBemInformada();
+        teste2.Bem_Informados(teste2);
+        System.out.println("Total de Pessoas Bem Informadas: " + teste2.getAgenda_BemInformadas().size());
+        */
+        
+        DesenharPessoa();
+        
     }
-    
     public void desenhaMundo(){
         for(int i = 0 ; i < mapa.length;i++){
             for(int j = 0 ; j < mapa[i].length;j++){
@@ -68,16 +76,23 @@ public class Mundo {
                         System.out.print(" ");
                         break;
                     case 1:
-                        System.out.print("\033[47m \033[0m");
+                        System.out.print("\033[47m \033[0m");//Parede
                         break;
                     case 2:
-                        System.out.print("\033[45m \033[0m");
+                        System.out.print("\033[45m \033[0m"); //Ia Disseminadora de Fake News
                         break;
                     case 3:
-                        System.out.print("\033[44m \033[0m");
+                        System.out.print("\033[44m \033[0m"); // Meio de comunicação Confiável
                         break;
                     case 4:
-                        System.out.print("\033[46m \033[0m");
+                        System.out.print("\033[46m \033[0m"); //Ia destruidora de Fake News
+                        break;
+
+                    case 5:
+                        System.out.print("\033[42m \033[0m"); //Pessoa Bem Informada
+                        break;
+                    case 6:
+                        System.out.print("\033[41m \033[0m"); //Pessoa Infectada!
                         break;
                     default:
                         break;
@@ -89,4 +104,27 @@ public class Mundo {
         System.out.println();
         System.out.println();
     }
+
+
+    public void GerarPessoasMundo(){
+        Random rand = new Random();
+        for(int i = 0 ; i < 20; i++){ //Cria as pessoas
+            
+            pessoasMundo.add(new PessoaBemInformada());
+            pessoasMundo.get(i).setX(rand.nextInt(1,59));//Limite das colunas da matriz!
+            pessoasMundo.get(i).setY(rand.nextInt(1,29));//Limite das linhas da matriz!
+            pessoasMundo.get(i).setCor(5);
+            
+        }
+    }
+
+    public void DesenharPessoa(){
+        for (Pessoa pessoa : pessoasMundo) {
+            ((PessoaBemInformada)pessoa).move();
+            mapa[pessoa.getY()][pessoa.getX()] = pessoa.getCor();
+            
+        }
+    }
+
+
 }
