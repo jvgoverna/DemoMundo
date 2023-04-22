@@ -13,7 +13,6 @@ import java.util.Random;
  */
 public class Mundo {
     private ArrayList <Pessoa> pessoasMundo = new ArrayList<>();
-    private int coluna = 1;
 
 
     public Mundo(){
@@ -68,7 +67,7 @@ public class Mundo {
 
     //Métodos do Mundo
     public void atualizaMundo(){
-        /* 
+        /* apenas mostrata quantas pessoas estao bem informadas 
         Pessoa teste = new Pessoa();
         teste.addContatos(teste);
         System.out.println("Total de Pessoas: " + teste.getAgendaContatos().size());
@@ -78,7 +77,7 @@ public class Mundo {
         System.out.println("Total de Pessoas Bem Informadas: " + teste2.getAgenda_BemInformadas().size());
         */
         
-        DesenharPessoa();
+        DesenharPessoa();//atualiza as pessoas
 
         
     }
@@ -122,7 +121,7 @@ public class Mundo {
 
     public void GerarPessoasMundo(){
         Random rand = new Random();
-        for(int i = 0 ; i < 100; i++){ //Cria as pessoas
+        for(int i = 0 ; i < 100; i++){ //Cria as pessoas e as coloca no mundo de forma aleatória com o limite da matriz definido
             
             pessoasMundo.add(new PessoaBemInformada());
             pessoasMundo.get(i).setX(rand.nextInt(1,59));//Limite das colunas da matriz!
@@ -133,8 +132,14 @@ public class Mundo {
 
     public void DesenharPessoa(){
         for (Pessoa pessoa : pessoasMundo) {
+            pessoa.setCoord_anterior_X(pessoa.getX());
+            pessoa.setCoord_anterior_y(pessoa.getY());
+            
             ((PessoaBemInformada)pessoa).move();
             mapa[pessoa.getY()][pessoa.getX()] = pessoa.getCor();
+            mapa[pessoa.getCoord_anterior_y()][pessoa.getCoord_anterior_X()] = 0;
+
+            
         }
     }
 }

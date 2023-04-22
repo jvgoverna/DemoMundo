@@ -14,16 +14,29 @@ public class Pessoa {
     private int x,y,cor;
     private String whatsappID;
     private ArrayList <Pessoa> AgendaContatos = new ArrayList<Pessoa>();
+    private int coord_anterior_X, coord_anterior_y;
     //private static int novoWhats = 0;
     
-    //public Pessoa(int x, int y, int cor) {
-        //this.x = x;
-        //this.y = y;
-        //this.cor = cor;
-        //this.whatsappID = "WhatsappID" + novoWhats;
-        //novoWhats++;
-    //}
     
+   
+
+    public int getCoord_anterior_X() {
+        return coord_anterior_X;
+    }
+
+    public void setCoord_anterior_X(int coord_anterior_X) {
+        this.coord_anterior_X = coord_anterior_X;
+    }
+
+    public int getCoord_anterior_y(){
+        return coord_anterior_y;
+    }
+
+    public void setCoord_anterior_y(int coord_anterior_y) {
+        this.coord_anterior_y = coord_anterior_y;
+    }
+
+
     public int getX() {
         return x;
     }
