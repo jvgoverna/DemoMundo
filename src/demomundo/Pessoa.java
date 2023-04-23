@@ -16,10 +16,6 @@ public class Pessoa {
     private ArrayList <Pessoa> AgendaContatos = new ArrayList<Pessoa>();
     private int coord_anterior_X, coord_anterior_y;
     //private static int novoWhats = 0;
-    
-    
-   
-
     public int getCoord_anterior_X() {
         return coord_anterior_X;
     }
@@ -36,19 +32,22 @@ public class Pessoa {
         this.coord_anterior_y = coord_anterior_y;
     }
 
-
     public int getX() {
         return x;
     }
+
     public void setX(int x) {
         this.x = x;
     }
+
     public int getY() {
         return y;
     }
+
     public void setY(int y) {
         this.y = y;
     }
+
     public int getCor() {
         return cor;
     }
@@ -59,12 +58,15 @@ public class Pessoa {
     public String getWhatsappID() {
         return whatsappID;
     }
+
     public void setWhatsappID(String whatsappID) {
         this.whatsappID = whatsappID;
     }
+
     public ArrayList<Pessoa> getAgendaContatos() {
         return AgendaContatos;
     }
+    
     public void setAgendaContatos(ArrayList<Pessoa> agendaContatos) {
         AgendaContatos = agendaContatos;
     }

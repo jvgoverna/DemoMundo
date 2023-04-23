@@ -53,18 +53,6 @@ public class Mundo {
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//29
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//30
     };
-
-
-
-    //Atributos do Mundo
-    public int[][] getMapa() {
-        return mapa;
-    }
-    public void setMapa(int[][] mapa) {
-        this.mapa = mapa;
-    }
-
-
     //Métodos do Mundo
     public void atualizaMundo(){
         /* apenas mostrata quantas pessoas estao bem informadas 
@@ -78,7 +66,6 @@ public class Mundo {
         */
         
         DesenharPessoa();//atualiza as pessoas
-
         
     }
     public void desenhaMundo(){
@@ -121,7 +108,7 @@ public class Mundo {
 
     public void GerarPessoasMundo(){
         Random rand = new Random();
-        for(int i = 0 ; i < 100; i++){ //Cria as pessoas e as coloca no mundo de forma aleatória com o limite da matriz definido
+        for(int i = 0 ; i < 5; i++){ //Cria as pessoas e as coloca no mundo de forma aleatória com o limite da matriz definido
             
             pessoasMundo.add(new PessoaBemInformada());
             pessoasMundo.get(i).setX(rand.nextInt(1,59));//Limite das colunas da matriz!
@@ -133,13 +120,16 @@ public class Mundo {
     public void DesenharPessoa(){
         for (Pessoa pessoa : pessoasMundo) {
             pessoa.setCoord_anterior_X(pessoa.getX());
-            pessoa.setCoord_anterior_y(pessoa.getY());
-            
+            pessoa.setCoord_anterior_y(pessoa.getY());            
             ((PessoaBemInformada)pessoa).move();
-            mapa[pessoa.getY()][pessoa.getX()] = pessoa.getCor();
-            mapa[pessoa.getCoord_anterior_y()][pessoa.getCoord_anterior_X()] = 0;
 
-            
+            mapa[pessoa.getY()][pessoa.getX()] = pessoa.getCor();//Mapa da Nova coordenada
+
+            if(pessoa.getCoord_anterior_X() == pessoa.getX() && pessoa.getCoord_anterior_y() == pessoa.getY()){
+                mapa[pessoa.getCoord_anterior_y()][pessoa.getCoord_anterior_X()] = pessoa.getCor(); //Mapa da antiga coordenada
+            }else{
+                mapa[pessoa.getCoord_anterior_y()][pessoa.getCoord_anterior_X()] = 0;
+            }   
         }
     }
 }
