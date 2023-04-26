@@ -24,14 +24,8 @@ public class PessoaBemInformada extends Pessoa implements iMovable{
         if(newX >= 1 && newX < 59 && newY >= 1 && newY < 29){
             setX(newX);
             setY(newY);
-        };
-
-        
-
+        }
     }
-
-    
-
     public ArrayList<PessoaBemInformada> getAgenda_BemInformadas() {
         return Agenda_BemInformadas;
     }

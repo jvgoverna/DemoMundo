@@ -16,12 +16,10 @@ public class DemoMundo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         Mundo m = new Mundo();
         while(true){
             m.desenhaMundo();
             m.atualizaMundo();
-            
             
             try{
                 Thread.sleep(500);
