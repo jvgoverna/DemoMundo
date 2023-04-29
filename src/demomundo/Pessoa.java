@@ -3,10 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package demomundo;
-
-import java.util.ArrayList;
-
-
 /**
  *
  * @author João Vitor
@@ -14,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Random;
 public class Pessoa implements iMovable{
     private Random rand = new Random();
+
     private int x, y,velocidade = 1;
+
     private int cor;
 
-    public Pessoa(){
-        setX(rand.nextInt(28));
-        setY(rand.nextInt(58));
-    }
+    private String whatsappID;
+    private int ID = 0;
+    
     public void move(){
         int move = rand.nextInt(4);
         switch(move){
@@ -66,6 +63,23 @@ public class Pessoa implements iMovable{
         }
     }
 
+
+    public String getWhatsappID() {
+        return whatsappID;
+    }
+
+    public void setWhatsappID(String whatsappID) {
+        this.whatsappID = whatsappID;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+        this.ID = ID+=1;
+    }
     public int getVelocidade() {
         return velocidade;
     }
@@ -73,8 +87,6 @@ public class Pessoa implements iMovable{
     public void setVelocidade(int velocidade) {
         this.velocidade = velocidade;
     }
-    
-    
     
     public Random getRand() {
         return rand;

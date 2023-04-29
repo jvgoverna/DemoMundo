@@ -5,6 +5,7 @@
 package demomundo;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -13,14 +14,25 @@ import java.util.ArrayList;
  * @author João Vitor
  */
 public class Mundo {
-
+    private ArrayList<Pessoa> pessoasmundo = new ArrayList<>();
     private IAGeradoraFakeNews fake;
     
     private int [][] mapa;
 
+
+    
     public Mundo(){
         refazMapa();
     }
+
+    public ArrayList<Pessoa> getPessoasmundo() {
+        return pessoasmundo;
+    }
+
+    public void setPessoasmundo(ArrayList<Pessoa> pessoasmundo) {
+        this.pessoasmundo = pessoasmundo;
+    }
+
 
     public IAGeradoraFakeNews getFake() {
         return fake;
@@ -102,7 +114,7 @@ public class Mundo {
                         break;
 
                     case 5:
-                        System.out.print("\033[42m \033[0m"); //Pessoa Bem Informada
+                        System.out.print("\033[43m \033[0m"); //Pessoa Bem Informada
                         break;
                     case 6:
                         System.out.print("\033[41m \033[0m"); //Pessoa Infectada!
@@ -118,17 +130,45 @@ public class Mundo {
         System.out.println();
     }
     
-
+    public void GerarPessoasMundo(ArrayList<Pessoa>pessoa){
+        Random rand = new Random();
+        for(int i = 0; i < 10; i++){
+            pessoa.add(new PessoaBemInformada());
+            pessoa.get(i).setX(rand.nextInt(1,28));
+            pessoa.get(i).setY(rand.nextInt(1,58));
+            pessoa.get(i).setID(i);
+            System.out.println("Id = "+ pessoa.get(i).getID());
+        }
+    }
     
-    public void DesenharPessoa(ArrayList<PessoaBemInformada>pessoabem){
+    public void DesenharPessoa(ArrayList<Pessoa>pessoa){
         int xAtual,yAtual;
         
-        for(int i = 0 ; i < pessoabem.size() ;i++){
-            xAtual = pessoabem.get(i).getX();
-            yAtual = pessoabem.get(i).getY();
-            
-           mapa[xAtual][yAtual] = pessoabem.get(i).getCor();
-           
+        for(int i = 0 ; i < pessoa.size() ;i++){
+            xAtual = pessoa.get(i).getX();
+            yAtual = pessoa.get(i).getY();
+           mapa[xAtual][yAtual] = pessoa.get(i).getCor();
+        }
+    }
+
+    public void encontrarVizinhosDeUmaPessoa(Pessoa p){
+        int posX = p.getX();
+        int posY = p.getY();
+     
+        for(int i = posX-1; i <= posX + 1; i++){
+            for(int j = posY-1; j <= posY + 1; j++){
+                if(mapa[i][j] == 5 && (i != posX || j != posY)){
+                    encontrarPessoasPorCoordenada(i, j);
+                }
+            }
+        }  
+}
+
+    public void encontrarPessoasPorCoordenada(int posX, int posY){
+        for (Pessoa pessoa : pessoasmundo) {
+            if(pessoa.getX() == posX && pessoa.getY() == posY){
+                System.out.println("Pessoa encontrada");
+            }
         }
     }
 }
