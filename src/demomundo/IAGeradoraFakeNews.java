@@ -8,8 +8,11 @@ package demomundo;
  * @author João Vitor
  */
 public class IAGeradoraFakeNews {
-    
     private int corFake;
+
+    public IAGeradoraFakeNews(){
+        this.corFake = 6;
+    }
 
     public int getCorFake() {
         return corFake;

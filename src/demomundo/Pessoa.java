@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package demomundo;
+import java.util.ArrayList;
 /**
  *
  * @author João Vitor
@@ -18,6 +19,8 @@ public class Pessoa implements iMovable{
     private String whatsappID;
     private int ID = 0;
     
+    private ArrayList <Integer> AgendaContatos = new ArrayList<>();
+
     public void move(){
         int move = rand.nextInt(4);
         switch(move){
@@ -61,6 +64,18 @@ public class Pessoa implements iMovable{
                 }
                 break;
         }
+    }
+
+    public ArrayList<Integer> getAgendaContatos() {
+        return AgendaContatos;
+    }
+
+    public void setAgendaContatos(ArrayList<Integer> AgendaContatos) {
+        this.AgendaContatos = AgendaContatos;
+    }
+
+    public void AdicionaAgendaContatos(int ID) {
+        this.AgendaContatos.add(ID);
     }
 
 

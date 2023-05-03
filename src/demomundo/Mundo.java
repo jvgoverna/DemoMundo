@@ -4,6 +4,7 @@
  */
 package demomundo;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,6 +17,7 @@ import java.util.Random;
 public class Mundo {
     private ArrayList<Pessoa> pessoasmundo = new ArrayList<>();
     private IAGeradoraFakeNews fake;
+    private ArrayList <IAGeradoraFakeNews> pessoasInfectadas = new ArrayList<>();
     
     private int [][] mapa;
 
@@ -23,6 +25,16 @@ public class Mundo {
     
     public Mundo(){
         refazMapa();
+    }
+
+    
+
+    public ArrayList<IAGeradoraFakeNews> getPessoasInfectadas() {
+        return pessoasInfectadas;
+    }
+
+    public void setPessoasInfectadas(ArrayList<IAGeradoraFakeNews> pessoasInfectadas) {
+        this.pessoasInfectadas = pessoasInfectadas;
     }
 
     public ArrayList<Pessoa> getPessoasmundo() {
@@ -133,11 +145,13 @@ public class Mundo {
     public void GerarPessoasMundo(ArrayList<Pessoa>pessoa){
         Random rand = new Random();
         for(int i = 0; i < 10; i++){
-            pessoa.add(new PessoaBemInformada());
+            pessoa.add(new Pessoa());
             pessoa.get(i).setX(rand.nextInt(1,28));
             pessoa.get(i).setY(rand.nextInt(1,58));
             pessoa.get(i).setID(i);
+            pessoa.get(i).setCor(5);
             System.out.println("Id = "+ pessoa.get(i).getID());
+
         }
     }
     
@@ -162,13 +176,37 @@ public class Mundo {
                 }
             }
         }  
-}
+    }
 
     public void encontrarPessoasPorCoordenada(int posX, int posY){
         for (Pessoa pessoa : pessoasmundo) {
             if(pessoa.getX() == posX && pessoa.getY() == posY){
                 System.out.println("Pessoa encontrada");
+                //pessoa.AdicionaAgendaContatos(pessoa.getID());
+                //System.out.println("Tamanho" + pessoa.getAgendaContatos());
+                //System.out.println(pessoa.getAgendaContatos());
             }
+        }
+    }
+    public void teste() {
+        IAGeradoraFakeNews fake = new IAGeradoraFakeNews();
+        fake.setCorFake(6);
+    
+        int xAtual, yAtual;
+        for (int i = 0; i < pessoasmundo.size(); i++) {
+            xAtual = pessoasmundo.get(i).getX();
+            yAtual = pessoasmundo.get(i).getY();
+
+            if (mapa[xAtual][yAtual] == 2 || mapa[xAtual + 1][yAtual + 1] == 2 || mapa[xAtual + 1][yAtual - 1] == 2|| mapa[xAtual - 1][yAtual + 1] == 2 || mapa[xAtual - 1][yAtual - 1] == 2) {
+                    pessoasmundo.get(i).setCor(fake.getCorFake());
+                    pessoasInfectadas.add(fake);
+                    System.out.println("Pessoa Infectada pelo raio de ação da IA disseminadora de Fake News");
+                } 
+                else {
+                    if (pessoasmundo.get(i).getCor() == fake.getCorFake()) {
+                        System.out.println("Pessoa Infectada fora do raio de ação da IA disseminadora de Fake News");
+                    }
+            }  
         }
     }
 }
