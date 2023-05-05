@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author João Vitor
  */
 import java.util.Random;
-public class Pessoa implements iMovable{
+public abstract class Pessoa implements iMovable{
     private Random rand = new Random();
 
     private int x, y,velocidade = 1;
@@ -18,6 +18,9 @@ public class Pessoa implements iMovable{
 
     private String whatsappID;
     private int ID = 0;
+
+    private boolean infectado = false;
+    private boolean imune = false;
     
     private ArrayList <Integer> AgendaContatos = new ArrayList<>();
 
@@ -66,6 +69,37 @@ public class Pessoa implements iMovable{
         }
     }
 
+
+    public  abstract boolean isMalInformado();
+
+
+    public boolean pessoaExisteEmAgendaContatos(int Id){
+        for(int i = 0; i < this.AgendaContatos.size(); i++){
+            if(this.AgendaContatos.get(i) == Id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isImune() {
+        return imune;
+    }
+
+    public boolean setImune(boolean imune) {
+        this.imune = imune;
+        return imune;
+    }
+    
+    public boolean isInfectado() {
+        return infectado;
+    }
+
+    public boolean setInfectado(boolean infectado) {
+        this.infectado = infectado;
+        return infectado;
+    }
+
     public ArrayList<Integer> getAgendaContatos() {
         return AgendaContatos;
     }
@@ -93,7 +127,6 @@ public class Pessoa implements iMovable{
 
     public void setID(int ID) {
         this.ID = ID;
-        this.ID = ID+=1;
     }
     public int getVelocidade() {
         return velocidade;

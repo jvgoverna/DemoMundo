@@ -3,18 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package demomundo;
+
 /**
  *
  * @author João Vitor
  */
-public class IAGeradoraFakeNews {
-    private int corFake = 2;
-
-    public int getCorFake() {
-        return corFake;
-    }
-
-    public void setCorFake(int corFake) {
-        this.corFake = corFake;
-    }
+public class IADestruidoraFakeNews {
+    
 }

@@ -20,7 +20,7 @@ public class DemoMundo {
 
         mundo.setPessoasmundo(pessoas);
         mundo.GerarPessoasMundo(pessoas);
-        mundo.setPessoasInfectadas(pessoasInfectadas);
+        //mundo.setPessoasInfectadas(pessoasInfectadas);
         
         Date tempo_inicio = new Date();
         
@@ -31,10 +31,10 @@ public class DemoMundo {
                     mundo.encontrarVizinhosDeUmaPessoa(pessoas.get(i));
                     pessoas.get(i).move();
                 }
-
+                
                 mundo.refazMapa();
                 mundo.DesenharPessoa(pessoas);
-                mundo.teste();
+                
 
                 
                 
@@ -47,14 +47,20 @@ public class DemoMundo {
                 System.out.println("Tempo de simulação: " + (current_time.getTime() - tempo_inicio.getTime())/1000);
                 System.out.println();
                 System.out.println("Total de pessoas: " + (int)pessoas.size());
-                System.out.println("\u001b[43m \033[0m Bem informados: " + pessoas.size());
-                //System.out.println("\u001b[41m \033[0m Infectados: " + pessoasInfectadas.size());
+                System.out.println("\u001b[43m \033[0m Bem informados: " + mundo.numerosdePessoasBemInformadas());
+                System.out.println("\u001b[41m \033[0m Mal informadas: " + mundo.numerosdePessoasMalInformadas());
+                
                 
                 
                 System.out.println("====================================");
+
+                mundo.infectarPessoas();
                 mundo.desenhaMundo();
 
                 Thread.sleep(1000);
+
+                
+
             }catch(Exception e){
                 e.printStackTrace();
             }

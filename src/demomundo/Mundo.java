@@ -16,8 +16,8 @@ import java.util.Random;
  */
 public class Mundo {
     private ArrayList<Pessoa> pessoasmundo = new ArrayList<>();
-    private IAGeradoraFakeNews fake;
-    private ArrayList <IAGeradoraFakeNews> pessoasInfectadas = new ArrayList<>();
+    private IAGeradoraFakeNews fake = new IAGeradoraFakeNews();
+
     
     private int [][] mapa;
 
@@ -28,14 +28,6 @@ public class Mundo {
     }
 
     
-
-    public ArrayList<IAGeradoraFakeNews> getPessoasInfectadas() {
-        return pessoasInfectadas;
-    }
-
-    public void setPessoasInfectadas(ArrayList<IAGeradoraFakeNews> pessoasInfectadas) {
-        this.pessoasInfectadas = pessoasInfectadas;
-    }
 
     public ArrayList<Pessoa> getPessoasmundo() {
         return pessoasmundo;
@@ -57,6 +49,7 @@ public class Mundo {
     public void refazMapa(){
         mapa = new int [][]
     {
+         
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//1
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//2
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//3
@@ -87,6 +80,7 @@ public class Mundo {
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//28
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},//29
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},//30
+        
     };
 }   
     
@@ -145,14 +139,22 @@ public class Mundo {
     public void GerarPessoasMundo(ArrayList<Pessoa>pessoa){
         Random rand = new Random();
         for(int i = 0; i < 10; i++){
-            pessoa.add(new Pessoa());
+            pessoa.add(new PessoaBemInformada());
             pessoa.get(i).setX(rand.nextInt(1,28));
             pessoa.get(i).setY(rand.nextInt(1,58));
             pessoa.get(i).setID(i);
-            pessoa.get(i).setCor(5);
             System.out.println("Id = "+ pessoa.get(i).getID());
 
+
         }
+
+        Pessoa p = pessoa.get(2);
+        Pessoa p2 = pessoa.get(3);
+
+        p.setX(5);
+        p.setY(5);
+        p2.setX(3);
+        p2.setY(7);
     }
     
     public void DesenharPessoa(ArrayList<Pessoa>pessoa){
@@ -163,6 +165,7 @@ public class Mundo {
             yAtual = pessoa.get(i).getY();
            mapa[xAtual][yAtual] = pessoa.get(i).getCor();
         }
+        
     }
 
     public void encontrarVizinhosDeUmaPessoa(Pessoa p){
@@ -171,42 +174,85 @@ public class Mundo {
      
         for(int i = posX-1; i <= posX + 1; i++){
             for(int j = posY-1; j <= posY + 1; j++){
+                
                 if(mapa[i][j] == 5 && (i != posX || j != posY)){
-                    encontrarPessoasPorCoordenada(i, j);
+                    Pessoa pessoaEncontrada =  encontrarPessoasPorCoordenada(i, j);
+                    if(pessoaEncontrada == null){
+                        continue;
+                    }
+                    if(!p.pessoaExisteEmAgendaContatos(pessoaEncontrada.getID())){
+                        p.AdicionaAgendaContatos(pessoaEncontrada.getID());
+                        pessoaEncontrada.AdicionaAgendaContatos(p.getID());
+                        System.out.println(p.getAgendaContatos() +" "+ pessoaEncontrada.getAgendaContatos());
+                        
+                    }
                 }
             }
         }  
     }
 
-    public void encontrarPessoasPorCoordenada(int posX, int posY){
+    public Pessoa encontrarPessoasPorCoordenada(int posX, int posY){
         for (Pessoa pessoa : pessoasmundo) {
             if(pessoa.getX() == posX && pessoa.getY() == posY){
-                System.out.println("Pessoa encontrada");
-                //pessoa.AdicionaAgendaContatos(pessoa.getID());
-                //System.out.println("Tamanho" + pessoa.getAgendaContatos());
-                //System.out.println(pessoa.getAgendaContatos());
+                return pessoa;    
             }
         }
+        return null;
     }
-    public void teste() {
-        IAGeradoraFakeNews fake = new IAGeradoraFakeNews();
-        fake.setCorFake(6);
-    
-        int xAtual, yAtual;
-        for (int i = 0; i < pessoasmundo.size(); i++) {
-            xAtual = pessoasmundo.get(i).getX();
-            yAtual = pessoasmundo.get(i).getY();
 
-            if (mapa[xAtual][yAtual] == 2 || mapa[xAtual + 1][yAtual + 1] == 2 || mapa[xAtual + 1][yAtual - 1] == 2|| mapa[xAtual - 1][yAtual + 1] == 2 || mapa[xAtual - 1][yAtual - 1] == 2) {
-                    pessoasmundo.get(i).setCor(fake.getCorFake());
-                    pessoasInfectadas.add(fake);
-                    System.out.println("Pessoa Infectada pelo raio de ação da IA disseminadora de Fake News");
-                } 
-                else {
-                    if (pessoasmundo.get(i).getCor() == fake.getCorFake()) {
-                        System.out.println("Pessoa Infectada fora do raio de ação da IA disseminadora de Fake News");
-                    }
-            }  
+    public boolean VerificarPessoaDentroDaEstrutura(Pessoa p, int x, int y, int xf, int yf){ 
+        return ( (p.getX() >= x && p.getX() <= xf ) && (p.getY() >= y && p.getY() <= yf) ); //xf é o ultimo numero da estrutura em x e yf é o ultimo numero da estrutura em y
+    }
+
+    
+
+    public void infectarPessoas(){
+        for (Pessoa p : pessoasmundo) {
+
+            //Verifica se a pessoa esta dentro da estrutura da IA de Fake News
+            if(VerificarPessoaDentroDaEstrutura(p, 3, 2, 7, 9 )){
+                PessoaMalInformada pessoaInfectada = new PessoaMalInformada(p);
+                for (int contato : pessoaInfectada.getAgendaContatos()) {
+                    if(!pessoasmundo.get(contato).isInfectado()){
+                        pessoasmundo.set(contato, new PessoaMalInformada(pessoasmundo.get(contato)));
+                        
+                    }   
+                }
+                pessoaInfectada.setInfectado(true);
+                pessoasmundo.set(pessoaInfectada.getID(),pessoaInfectada);
+            }
         }
+    }    
+
+    public int numerosdePessoasInfectadas(){
+        int contador = 0;
+        for (Pessoa p : pessoasmundo) {
+            if(p.isInfectado()){
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int numerosdePessoasBemInformadas(){
+        int contador = 0;
+
+        for (Pessoa p : pessoasmundo) {
+            if(!p.isMalInformado()){
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int numerosdePessoasMalInformadas(){
+        int contador = 0;
+
+        for(Pessoa p : pessoasmundo){
+            if(p.isMalInformado()){
+                contador++;
+            }
+        }
+        return contador;
     }
 }

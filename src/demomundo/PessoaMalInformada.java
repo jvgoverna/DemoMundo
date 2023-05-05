@@ -3,14 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package demomundo;
+
 /**
  *
  * @author João Vitor
  */
-public class PessoaBemInformada extends Pessoa{
-    
-    public PessoaBemInformada(Pessoa p){
-        setCor(5);
+public class PessoaMalInformada extends Pessoa{
+
+
+
+    public PessoaMalInformada(Pessoa p){
+        setCor(6);
         setX(p.getX());
         setY(p.getY());
         setVelocidade(p.getVelocidade());
@@ -22,10 +25,6 @@ public class PessoaBemInformada extends Pessoa{
     }
 
     public boolean isMalInformado(){
-        return false;
-    }
-
-    public PessoaBemInformada(){
-        setCor(5);
+        return true;
     }
 }
