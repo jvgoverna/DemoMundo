@@ -9,5 +9,11 @@ package demomundo;
  * @author João Vitor
  */
 public class MeioComunicacaoConfiavel {
+    private int cor;
+
+    public MeioComunicacaoConfiavel() {
+        this.cor = 7;
+    }
+
     
 }

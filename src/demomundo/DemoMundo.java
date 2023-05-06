@@ -55,10 +55,11 @@ public class DemoMundo {
                 System.out.println("====================================");
 
                 mundo.infectarPessoas();
+                mundo.desinfectarPessoasMalInformadas();
                 mundo.desenhaMundo();
 
                 Thread.sleep(1000);
-
+                
                 
 
             }catch(Exception e){
