@@ -20,7 +20,7 @@ public abstract class Pessoa implements iMovable{
     private int ID = 0;
 
     private boolean infectado = false;
-    private boolean imune = false;
+    private int imune = 0;
     
     private ArrayList <Integer> AgendaContatos = new ArrayList<>();
 
@@ -31,47 +31,57 @@ public abstract class Pessoa implements iMovable{
                 y -= getVelocidade();
                 if(y < 1){
                     y = 58;
-                    break;
+                    
                 }else if(y > 58){
                     y = 1;
-                    break;
+                    
                 }
+                break;
             case 1: //baixo
                     y += getVelocidade();
                     if(y < 1){
                         y = 58;
-                        break;
+                        
                     }else if(y > 58){
                         y = 1;
-                        break;
+                        
                     }
                 break;
             case 2: //direita
                 x += getVelocidade();
                 if(x < 1){
                     x = 28;
-                    break;
+                    
                 }else if(x > 28){
                     x = 1;
-                    break;
+                    
                 }
                 break;
             case 3: //esquerda
                 x -= getVelocidade();
                 if(x < 1){
                     x = 28;
-                    break;
+                    
                 }else if(x > 28){
                     x = 1;
-                    break;
+                   
                 }
                 break;
+        }
+
+        if(isImune()){
+            imune --;
+            if(!isImune()){
+                setCor(5);
+            }
         }
     }
 
 
-    public  abstract boolean isMalInformado();
+    public abstract boolean isMalInformado();
 
+
+    
 
     public boolean pessoaExisteEmAgendaContatos(int Id){
         for(int i = 0; i < this.AgendaContatos.size(); i++){
@@ -83,12 +93,18 @@ public abstract class Pessoa implements iMovable{
     }
 
     public boolean isImune() {
-        return imune;
+        return imune != 0;
     }
 
-    public boolean setImune(boolean imune) {
+    public int getImune() {
+        return imune;
+    }
+    
+    
+    public int setImune(int imune) {
         this.imune = imune;
         return imune;
+
     }
     
     public boolean isInfectado() {
@@ -167,6 +183,8 @@ public abstract class Pessoa implements iMovable{
     public void setCor(int cor) {
         this.cor = cor;
     }
+
+
     
     
     

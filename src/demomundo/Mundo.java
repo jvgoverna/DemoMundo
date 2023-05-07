@@ -16,8 +16,12 @@ import java.util.Random;
  */
 public class Mundo {
     private ArrayList<Pessoa> pessoasmundo = new ArrayList<>();
+
     private IAGeradoraFakeNews fake = new IAGeradoraFakeNews();
 
+    MeioComunicacaoConfiavel meio = new MeioComunicacaoConfiavel();
+    IADestruidoraFakeNews iADestruidora = new IADestruidoraFakeNews();
+    IAGeradoraFakeNews iaGeradoraFake = new IAGeradoraFakeNews();
     
     private int [][] mapa;
 
@@ -28,7 +32,6 @@ public class Mundo {
     }
 
     
-
     public ArrayList<Pessoa> getPessoasmundo() {
         return pessoasmundo;
     }
@@ -111,8 +114,8 @@ public class Mundo {
                         System.out.print("\033[41m \033[0m"); //Pessoa Infectada!
                         break;
                     case 7:
-                        System.out.println("\033[32m \033[0m"); //Pessoa Imune por 30 segundos
-                    
+                        System.out.print("\033[42m \033[0m"); //Pessoa Imune
+                        break;
                     default:
                         break;
                 }
@@ -126,7 +129,7 @@ public class Mundo {
     
     public void GerarPessoasMundo(ArrayList<Pessoa>pessoa){
         Random rand = new Random();
-        for(int i = 0; i < 30; i++){
+        for(int i = 0; i < 100; i++){
             pessoa.add(new PessoaBemInformada());
             pessoa.get(i).setX(rand.nextInt(1,28)); //Desconsidera-se as paredes de ambos os lados
             pessoa.get(i).setY(rand.nextInt(1,58)); 
@@ -139,10 +142,12 @@ public class Mundo {
         /* Pessoa p = pessoa.get(2);
         Pessoa p2 = pessoa.get(3);
 
-        p.setX(5);
-        p.setY(5);
-        p2.setX(3);
-        p2.setY(7); */
+        p.setX(2);
+        p.setY(1);
+        p2.setX(2);
+        p2.setY(2); */
+
+
     }
     
     public void DesenharPessoa(ArrayList<Pessoa>pessoa){
@@ -198,16 +203,18 @@ public class Mundo {
         for (Pessoa p : pessoasmundo) {
 
             //Verifica se a pessoa esta dentro da estrutura da IA de Fake News
-            if(VerificarPessoaDentroDaEstrutura(p, 3, 2, 7, 9 )){
+            if(!p.isImune() && iaGeradoraFake.isDentroGeracaoFake(p.getX(), p.getY())){
                 PessoaMalInformada pessoaInfectada = new PessoaMalInformada(p);
                 for (int contato : pessoaInfectada.getAgendaContatos()) {
-                    if(!pessoasmundo.get(contato).isInfectado()){
+                    if(!pessoasmundo.get(contato).isInfectado() && !pessoasmundo.get(contato).isImune()){
                         pessoasmundo.set(contato, new PessoaMalInformada(pessoasmundo.get(contato)));
                         
                     }   
                 }
+
                 pessoaInfectada.setInfectado(true);
                 pessoasmundo.set(pessoaInfectada.getID(),pessoaInfectada);
+
             }
         }
     }    
@@ -215,7 +222,7 @@ public class Mundo {
     public void desinfectarPessoasMalInformadas(){
         for(Pessoa p : pessoasmundo){
 
-            if(VerificarPessoaDentroDaEstrutura(p, 3, 50, 7, 57)){ //Verifica se alguma pessoa esta na estrutura de IA destruidora de Fake News.
+            if(iADestruidora.isDentro(p.getX(), p.getY())){
                 PessoaBemInformada pessoaDesinfectada = new PessoaBemInformada(p); // cria uma nova instância da classe PessoaBemInformada, que é uma subclasse da classe Pessoa
                 for(int contato: pessoaDesinfectada.getAgendaContatos()){
                     if(pessoasmundo.get(contato).isInfectado()){ //Verificação se o contato esta infectado e para isso acessa-se a lista de Pessoas e a função é chamada
@@ -225,6 +232,25 @@ public class Mundo {
                 }
                 pessoaDesinfectada.setInfectado(false); //Apos desinfecção de todos os contatos, a pessoa é marcada como não infectada
                 pessoasmundo.set(pessoaDesinfectada.getID(), pessoaDesinfectada); //A pessoa original é atualizada com os dados da pessoa desinfectada, usando novamente o set.
+            }
+        }
+    }
+
+    public void imunizarPessoas(){
+        for(Pessoa p : pessoasmundo){
+            
+
+            if(meio.isDentroMeio(p.getX(), p.getY())){
+                if(p instanceof PessoaMalInformada){
+                    p = new PessoaBemInformada(p);
+                    pessoasmundo.set(p.getID(), p);
+                    
+                }
+                p.setImune(meio.getTempoImunizacao());
+                p.setCor(meio.getCor());
+
+                
+                
             }
         }
     }
@@ -255,6 +281,17 @@ public class Mundo {
 
         for(Pessoa p : pessoasmundo){
             if(p.isMalInformado()){
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public int numerodePessoasImunes(){
+        int contador = 0;
+
+        for(Pessoa p : pessoasmundo){
+            if(p.isImune()){
                 contador++;
             }
         }

@@ -8,13 +8,51 @@ package demomundo;
  * @author João Vitor
  */
 public class IAGeradoraFakeNews {
-    private int corFake = 2;
+    private int x,y,xf,yf;
 
-    public int getCorFake() {
-        return corFake;
+
+    public IAGeradoraFakeNews(){
+        this.x = 3;
+        this.y = 2;
+        this.xf = 7;
+        this.yf = 9;
     }
 
-    public void setCorFake(int corFake) {
-        this.corFake = corFake;
+    public int getX() {
+        return x;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getXf() {
+        return xf;
+    }
+
+    public void setXf(int xf) {
+        this.xf = xf;
+    }
+
+    public int getYf() {
+        return yf;
+    }
+
+    public void setYf(int yf) {
+        this.yf = yf;
+    }
+
+    public boolean isDentroGeracaoFake(int x , int y){
+        return ( (x >= this.x && x <= this.xf ) && (y >= this.y && y <= this.yf) );
+    }
+
+    
 }

@@ -13,10 +13,9 @@ import java.util.Date;
  */
 public class DemoMundo {
     public static void main(String[] args) {
-        ArrayList<PessoaBemInformada> pessoabem = new ArrayList<>();
         ArrayList<Pessoa> pessoas = new ArrayList<>();
-        ArrayList <IAGeradoraFakeNews> pessoasInfectadas = new ArrayList<>();
         Mundo mundo = new Mundo();
+        
 
         mundo.setPessoasmundo(pessoas);
         mundo.GerarPessoasMundo(pessoas);
@@ -26,18 +25,17 @@ public class DemoMundo {
         
         while(true){
             try{
-                
-                for(int i = 0;i<pessoas.size();i++){
-                    mundo.encontrarVizinhosDeUmaPessoa(pessoas.get(i));
-                    pessoas.get(i).move();
+                for (Pessoa p : pessoas) {
+                    mundo.encontrarVizinhosDeUmaPessoa(p);
+                    p.move();
+                    
                 }
-                
-                mundo.refazMapa();
-                mundo.DesenharPessoa(pessoas);
-                
 
+                System.out.println("====================================");
                 
-                
+                mundo.infectarPessoas();
+                mundo.desinfectarPessoasMalInformadas();
+                mundo.imunizarPessoas();
                 Date current_time = new Date();
                 System.out.println();
                 System.out.println();
@@ -49,16 +47,12 @@ public class DemoMundo {
                 System.out.println("Total de pessoas: " + (int)pessoas.size());
                 System.out.println("\u001b[43m \033[0m Bem informados: " + mundo.numerosdePessoasBemInformadas());
                 System.out.println("\u001b[41m \033[0m Mal informadas: " + mundo.numerosdePessoasMalInformadas());
-                
-                
-                
-                System.out.println("====================================");
-
-                mundo.infectarPessoas();
-                mundo.desinfectarPessoasMalInformadas();
+                System.out.println("\u001b[42m \033[0m Imunes: " + mundo.numerodePessoasImunes());
+                mundo.refazMapa();
+                mundo.DesenharPessoa(pessoas);
                 mundo.desenhaMundo();
-
                 Thread.sleep(1000);
+                //System.in.read();
                 
                 
 

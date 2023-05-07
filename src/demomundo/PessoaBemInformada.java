@@ -15,7 +15,7 @@ public class PessoaBemInformada extends Pessoa{
         setY(p.getY());
         setVelocidade(p.getVelocidade());
         setInfectado(p.isInfectado());
-        setImune(p.isImune());
+        setImune(p.getImune());
         setAgendaContatos(p.getAgendaContatos());
         setWhatsappID(p.getWhatsappID());
         setID(p.getID());
