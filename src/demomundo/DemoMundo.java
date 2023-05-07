@@ -31,7 +31,7 @@ public class DemoMundo {
                     
                 }
 
-                System.out.println("====================================");
+                
                 
                 mundo.infectarPessoas();
                 mundo.desinfectarPessoasMalInformadas();
@@ -48,6 +48,7 @@ public class DemoMundo {
                 System.out.println("\u001b[43m \033[0m Bem informados: " + mundo.numerosdePessoasBemInformadas());
                 System.out.println("\u001b[41m \033[0m Mal informadas: " + mundo.numerosdePessoasMalInformadas());
                 System.out.println("\u001b[42m \033[0m Imunes: " + mundo.numerodePessoasImunes());
+                System.out.println("====================================");
                 mundo.refazMapa();
                 mundo.DesenharPessoa(pessoas);
                 mundo.desenhaMundo();

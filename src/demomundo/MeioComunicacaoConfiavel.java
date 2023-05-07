@@ -38,8 +38,6 @@ public class MeioComunicacaoConfiavel {
     }
 
     public int getTempoImunizacao(){
-
-
         return time;
     }
 

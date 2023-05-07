@@ -193,10 +193,7 @@ public class Mundo {
         return null; //Se não encontrar ninguem retorna nada.
     }
 
-    public boolean VerificarPessoaDentroDaEstrutura(Pessoa p, int x, int y, int xf, int yf){ 
-        return ( (p.getX() >= x && p.getX() <= xf ) && (p.getY() >= y && p.getY() <= yf) ); //xf é o ultimo numero da estrutura em x e yf é o ultimo numero da estrutura em y
-    }
-
+ 
     
 
     public void infectarPessoas(){
@@ -269,7 +266,7 @@ public class Mundo {
         int contador = 0;
 
         for (Pessoa p : pessoasmundo) {
-            if(!p.isMalInformado()){
+            if(!p.isMalInformado() && !p.isImune()){
                 contador++;
             }
         }
@@ -280,7 +277,7 @@ public class Mundo {
         int contador = 0;
 
         for(Pessoa p : pessoasmundo){
-            if(p.isMalInformado()){
+            if(p.isMalInformado() && !p.isImune()){
                 contador++;
             }
         }
