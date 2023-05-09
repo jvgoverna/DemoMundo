@@ -14,11 +14,11 @@ public class MeioComunicacaoConfiavel {
     
 
     private int cor;
-    private int time = 30;
+    private int time = 30; //Tempo que ira decaindo ate chegar a 0 que ocorrera a desinmunização
     private int x,y,xf,yf;
 
     
-
+    
     public MeioComunicacaoConfiavel() {
         this.cor = 7;
         this.x = 13;
@@ -26,8 +26,14 @@ public class MeioComunicacaoConfiavel {
         this.xf = 20;
         this.yf = 35;
     }
-
     
+    
+    //Metodo que verifica se a pessoa esta dentro do meio de comunicação
+    public boolean isDentroMeio(int x, int y){
+        return ( (x >= this.x && x <= this.xf ) && (y >= this.y && y <= this.yf) );
+    }
+    
+    //Getters e setters
 
     public int getCor() {
         return cor;
@@ -101,8 +107,4 @@ public class MeioComunicacaoConfiavel {
         this.yf = yf;
     }
 
-
-    public boolean isDentroMeio(int x, int y){
-        return ( (x >= this.x && x <= this.xf ) && (y >= this.y && y <= this.yf) );
-    }
 }

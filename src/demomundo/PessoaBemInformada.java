@@ -21,6 +21,7 @@ public class PessoaBemInformada extends Pessoa{
         setID(p.getID());
     }
 
+    @Override
     public boolean isMalInformado(){
         return false;
     }

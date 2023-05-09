@@ -78,7 +78,7 @@ public abstract class Pessoa implements iMovable{
     }
 
 
-    public abstract boolean isMalInformado();
+    public abstract boolean isMalInformado(); //Usado depois para identificar as pessoas Mal e bem informadas
 
 
     
@@ -92,6 +92,7 @@ public abstract class Pessoa implements iMovable{
         return false;
     }
 
+    //Getters e setters
     public boolean isImune() {
         return imune != 0;
     }

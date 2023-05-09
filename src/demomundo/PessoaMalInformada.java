@@ -9,8 +9,7 @@ package demomundo;
  * @author João Vitor
  */
 public class PessoaMalInformada extends Pessoa{
-
-
+    
 
     public PessoaMalInformada(Pessoa p){
         setCor(6);
@@ -24,7 +23,9 @@ public class PessoaMalInformada extends Pessoa{
         setID(p.getID());
     }
 
+    @Override
     public boolean isMalInformado(){
         return true;
     }
+    
 }
