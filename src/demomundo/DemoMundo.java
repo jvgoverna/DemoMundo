@@ -45,9 +45,14 @@ public class DemoMundo {
                 System.out.println("Tempo de simulação: " + (current_time.getTime() - tempo_inicio.getTime())/1000);
                 System.out.println();
                 System.out.println("Total de pessoas: " + (int)pessoas.size());
+                System.out.println("\u001b[46m \033[0m IA Geradora de Fake News");
+                System.out.println("\u001b[44m \033[0m IA Destruidora de Fake News");
+                System.out.println("\u001b[45m \033[0m IA Geradora de Fake News");
+                System.out.println("");
                 System.out.println("\u001b[43m \033[0m Bem informados: " + mundo.numerosdePessoasBemInformadas());
                 System.out.println("\u001b[41m \033[0m Mal informadas: " + mundo.numerosdePessoasMalInformadas());
                 System.out.println("\u001b[42m \033[0m Imunes: " + mundo.numerodePessoasImunes());
+                System.out.println("Pessoa que passaram na IA geradora de FakeNews: " + mundo.getFake().getContador());
                 System.out.println("====================================");
                 mundo.refazMapa();
                 mundo.DesenharPessoa(pessoas);

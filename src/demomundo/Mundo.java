@@ -18,7 +18,7 @@ public class Mundo {
     private ArrayList<Pessoa> pessoasmundo = new ArrayList<>();
 
     
-
+    FakeNews fake = new FakeNews();
     MeioComunicacaoConfiavel meio = new MeioComunicacaoConfiavel();
     IADestruidoraFakeNews iADestruidora = new IADestruidoraFakeNews();
     IAGeradoraFakeNews iaGeradoraFake = new IAGeradoraFakeNews();
@@ -40,6 +40,15 @@ public class Mundo {
         this.pessoasmundo = pessoasmundo;
     }
 
+    public FakeNews getFake() {
+        return fake;
+    }
+
+    public void setFake(FakeNews fake) {
+        this.fake = fake;
+    }
+    
+    
 
     
     
@@ -98,8 +107,8 @@ public class Mundo {
                         System.out.print("\033[44m \033[0m"); // Ia destruidora de Fake News
                         break;
                     case 4:
-                        //System.out.print("\033[46m \033[0m"); //Meio de Comunicação confiável
-                        System.out.print("\033[47m \033[0m");
+                        System.out.print("\033[46m \033[0m"); //Meio de Comunicação confiável
+                        //System.out.print("\033[47m \033[0m");
                         break;
 
                     case 5:
@@ -186,10 +195,12 @@ public class Mundo {
 
             //Verifica se a pessoa esta dentro da estrutura da IA de Fake News
             if(!p.isImune() && iaGeradoraFake.isDentroGeracaoFake(p.getX(), p.getY())){
+                fake.AdicionarPessoaInfectada(p);//chama a função de adicionar pessoas no novo arrayList 
                 PessoaMalInformada pessoaInfectada = new PessoaMalInformada(p);
                 for (int contato : pessoaInfectada.getAgendaContatos()) { //passa o contato como uma instancia do arrayList de agenda de contatos
                     if(!pessoasmundo.get(contato).isInfectado() && !pessoasmundo.get(contato).isImune()){ //Verifica se o arrayList de pessoas mundo esta infectado e se não esta imune
                         pessoasmundo.set(contato, new PessoaMalInformada(pessoasmundo.get(contato))); //se não estiver infectado e nem imune, a pessoa e a agenda é infectada
+                        fake.AdicionarPessoaInfectada(pessoaInfectada);//a lista tambem é adicionada no novo arrayList
                         
                     }   
                 }
